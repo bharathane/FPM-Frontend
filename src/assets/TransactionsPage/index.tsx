@@ -1,7 +1,7 @@
 import HeadNav from "../HeadNav";
 import LeftNav from "../LeftNav";
 import Cookies from "js-cookie";
-import { apiConstains } from "../ApiConstains";
+
 import EachTnx from "../EachTransaction";
 import { useState, useEffect } from "react";
 import "./index.css";
@@ -18,15 +18,10 @@ type eachTnxType = {
 };
 
 const TransactionsPage = () => {
-  const [lastTnxStatus, setLastTnxStatus] = useState<String>(
-    apiConstains.initial
-  );
-
   const [debitsOrCredits, setDebitsOrCredits] = useState("");
   const [lastTnx, setLastTnx] = useState<eachTnxType[]>([]);
 
   const apiForLastTnx = async () => {
-    setLastTnxStatus(apiConstains.inprogress);
     const jwtToken = Cookies.get("jwt_token");
     const url = `https://fpm-backen-2.onrender.com/transactions?username=${localStorage.getItem(
       "username"
@@ -41,10 +36,7 @@ const TransactionsPage = () => {
     const res = await fetch(url, options);
     const jsonRes = await res.json();
     if (res.ok == true) {
-      setLastTnxStatus(apiConstains.success);
       setLastTnx(jsonRes);
-    } else {
-      setLastTnxStatus(apiConstains.failure);
     }
   };
 

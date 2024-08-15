@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { apiConstains } from "../ApiConstains";
 import Cookies from "js-cookie";
-import { RotatingLines } from "react-loader-spinner";
+
 import AppContext from "../../context/appContext";
 import "./index.css";
 
@@ -13,9 +13,6 @@ const TotalCreditDebit = () => {
   );
 
   const [totalDebits, setTotalDebits] = useState<number>(0);
-  const [totalDebApiCon, setTotaDebApiCon] = useState<String>(
-    apiConstains.initial
-  );
 
   //making api call for total credits
   const apiForTotalCredits = async () => {
@@ -45,7 +42,6 @@ const TotalCreditDebit = () => {
   };
 
   const apiForTotalDebits = async () => {
-    setTotaDebApiCon(apiConstains.initial);
     const urlDebs = `https://fpm-backen-2.onrender.com/transactions/debits?username=${localStorage.getItem(
       "username"
     )}`;
@@ -61,10 +57,7 @@ const TotalCreditDebit = () => {
     const res = await fetch(urlDebs, options);
     const jsonRess = await res.json();
     if (res.ok == true) {
-      setTotaDebApiCon(apiConstains.success);
       setTotalDebits(jsonRess);
-    } else {
-      setTotaDebApiCon(apiConstains.failure);
     }
   };
   useEffect(() => {
