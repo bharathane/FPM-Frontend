@@ -1,0 +1,62 @@
+.logout-button {
+  background-color: #2d60ff;
+  color: white;
+  width: 10vw;
+  height: 5vh;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  margin-left: 10px;
+  box-sizing: border-box;
+  font-size: 80%;
+}
+
+.header-btns {
+  display: flex;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  box-sizing: border-box;
+  height: 10vh;
+}
+
+.menu-item {
+  display: none;
+}
+
+.username {
+  color: rgb(111, 111, 155);
+}
+
+@media (max-width: 1083px) {
+  .menu-item {
+    display: block;
+    font-size: 23px;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 700px) {
+  .logout-button {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 560px) {
+  .logout-button {
+    font-size: 5px;
+    height: 3vh;
+  }
+
+  .username {
+    font-size: 19px;
+  }
+}

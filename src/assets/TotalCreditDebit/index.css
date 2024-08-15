@@ -1,0 +1,53 @@
+.total-amounts-class {
+  background-color: white;
+  border-radius: 10px;
+  width: 35vw;
+  display: flex;
+  height: 20vh;
+  justify-content: space-around;
+  align-items: center;
+}
+.total-amounts-class img {
+  width: 8vw;
+}
+
+.total-amouts-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.debit-amount-h {
+  color: red;
+}
+
+.credit-amount-h {
+  color: green;
+}
+
+@media (max-width: 840px) {
+  .debit-amount-h {
+    font-size: 21px;
+  }
+
+  .credit-amount-h {
+    font-size: 21px;
+  }
+
+  .total-amounts-class img {
+    width: 10vw;
+  }
+
+  .total-amounts-class p {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 560px) {
+  .debit-amount-h {
+    font-size: 16px;
+  }
+
+  .credit-amount-h {
+    font-size: 16px;
+  }
+}

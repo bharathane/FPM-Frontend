@@ -1,0 +1,41 @@
+.left-nav {
+  min-width: 19vw;
+  height: 100vh;
+}
+
+.left-nav-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  gap: 5px;
+}
+
+.left-navlinks {
+  position: fixid;
+  text-align: left;
+  text-decoration: none;
+  min-width: 10vw;
+  max-width: 12vw;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.left-navlinks img {
+  min-width: 1.2vw;
+  width: 2vw;
+}
+
+@media (max-width: 1083px) {
+  .left-nav {
+    display: none;
+  }
+  .left-nav-show {
+    display: block;
+    position: fixed;
+    background-color: white;
+  }
+}

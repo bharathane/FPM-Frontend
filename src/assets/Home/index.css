@@ -1,0 +1,21 @@
+.home-wrapper-container {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box !important;
+}
+.home-con {
+  min-width: 79vw;
+  max-width: max-content;
+}
+
+.content-container {
+  background-color: #edeeeee7;
+  min-height: 88vh;
+  padding: 30px;
+}
+
+@media (max-width: 1083px) {
+  .home-con {
+    min-width: 100vw;
+  }
+}

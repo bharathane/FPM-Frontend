@@ -1,0 +1,50 @@
+.each-tnx-item {
+  list-style: none;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 15px;
+  background-color: white;
+  border-bottom: 0.5px solid rgb(189, 189, 189);
+  border-radius: 5px;
+  height: 8vh;
+  padding-left: 15px;
+  box-sizing: border-box;
+}
+td {
+  width: 50%;
+  text-align: left;
+}
+.credit-amount-each {
+  color: red;
+}
+
+.debit-amount-each {
+  color: green;
+}
+.each-tnx-item button {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+@media (max-width: 840px) {
+  .credit-amount-each {
+    font-size: 12px;
+  }
+
+  .debit-amount-each {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 680px) {
+  td {
+    font-size: 10px;
+  }
+  .each-td-img {
+    width: 5vw;
+  }
+}

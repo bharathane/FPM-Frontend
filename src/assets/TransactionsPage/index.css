@@ -1,0 +1,13 @@
+th {
+  width: 50%;
+  text-align: left;
+  border: 2px solid black;
+}
+
+.debitButtons {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
