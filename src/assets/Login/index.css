@@ -54,6 +54,12 @@
   font-family: roboto;
   cursor: pointer;
 }
+
+.threedots-con {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 @media screen and (max-width: 991px) {
   .imgContainer {
     display: none;

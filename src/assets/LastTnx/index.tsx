@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-
+import { apiConstains } from "../ApiConstains";
+import { InfinitySpin } from "react-loader-spinner";
 import EachTnx from "../EachTransaction";
 import "./index.css";
 
@@ -17,8 +18,10 @@ type eachTnxType = {
 
 const LastTnx = () => {
   const [lastTnx, setLastTnx] = useState<eachTnxType[]>([]);
+  const [lastTnxStatus, setLastTnxStatus] = useState(apiConstains.initial);
 
   const apiForLastTnx = async () => {
+    setLastTnxStatus(apiConstains.inprogress);
     const url = `https://fpm-backen-2.onrender.com/transactions/recent?username=${localStorage.getItem(
       "username"
     )}`;
@@ -35,6 +38,9 @@ const LastTnx = () => {
 
     if (res.ok == true) {
       setLastTnx(jsonRes);
+      setLastTnxStatus(apiConstains.success);
+    } else {
+      setLastTnxStatus(apiConstains.failure);
     }
   };
 
@@ -42,20 +48,38 @@ const LastTnx = () => {
     apiForLastTnx();
   }, []);
 
+  const failureView = () => <p>Somthing went wrong! please try again...</p>;
+
+  const lastTnxInprogressView = () => (
+    <div style={{ height: "3vh" }}>
+      {" "}
+      <InfinitySpin color="rgb(111, 111, 155)" />
+    </div>
+  );
+
+  const lastTnxSuccessView = () => (
+    <tbody>
+      {lastTnx.map((each) => (
+        <EachTnx single={each} key={each.id} apiForLastTnx={apiForLastTnx} />
+      ))}
+    </tbody>
+  );
+
+  const finalLastTnxView = () => {
+    switch (lastTnxStatus) {
+      case apiConstains.success:
+        return lastTnxSuccessView();
+      case apiConstains.failure:
+        return failureView();
+      default:
+        return lastTnxInprogressView();
+    }
+  };
+
   return (
     <div>
       <h3>Recent Transactions</h3>
-      <table className="table-last-tnx">
-        <tbody>
-          {lastTnx.map((each) => (
-            <EachTnx
-              single={each}
-              key={each.id}
-              apiForLastTnx={apiForLastTnx}
-            />
-          ))}
-        </tbody>
-      </table>
+      <table className="table-last-tnx">{finalLastTnxView()}</table>
     </div>
   );
 };

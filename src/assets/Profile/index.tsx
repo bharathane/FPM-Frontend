@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-
+import { MagnifyingGlass } from "react-loader-spinner";
 import "./index.css";
 import LeftNav from "../LeftNav";
 import HeadNav from "../HeadNav";
+import { apiConstains } from "../ApiConstains";
 
 type chartDataType = {
   transactionDate: Date;
@@ -12,8 +13,10 @@ type chartDataType = {
 };
 const Profile = () => {
   const [chartData, setChartData] = useState<chartDataType[]>([]);
+  const [reportStatus, setReportStatus] = useState(apiConstains.initial);
 
   const makingApiForOverview = async () => {
+    setReportStatus(apiConstains.inprogress);
     const jwtToken = Cookies.get("jwt_token");
     const url = `https://fpm-backen-2.onrender.com/transactions/overview?username=${localStorage.getItem(
       "username"
@@ -27,12 +30,50 @@ const Profile = () => {
     };
     const res = await fetch(url, options);
     const jsonRes = await res.json();
-    setChartData(jsonRes);
+    if (res.ok === true) {
+      setChartData(jsonRes);
+      setReportStatus(apiConstains.success);
+    } else {
+      setReportStatus(apiConstains.failure);
+    }
   };
 
   useEffect(() => {
     makingApiForOverview();
   }, []);
+
+  const failureView = () => <p>Somthing went wrong! please try again...</p>;
+
+  const reportInprogressView = () => (
+    <div className="reports-inprogress">
+      <MagnifyingGlass />
+    </div>
+  );
+
+  const reportSuccessView = () => (
+    <tbody>
+      {chartData.map((each) => (
+        <tr>
+          <td>{`${new Date(each.transactionDate).getDate()}-${new Date(
+            each.transactionDate
+          ).getMonth()} - ${new Date(each.transactionDate).getFullYear()}`}</td>
+          <td>{each.totalCredits}</td>
+          <td>{each.totalDebits}</td>
+        </tr>
+      ))}
+    </tbody>
+  );
+
+  const reportFinalView = () => {
+    switch (reportStatus) {
+      case apiConstains.success:
+        return reportSuccessView();
+      case apiConstains.failure:
+        return failureView();
+      default:
+        return reportInprogressView();
+    }
+  };
 
   return (
     <div className="home-wrapper-container">
@@ -52,21 +93,7 @@ const Profile = () => {
                   <th>Total Debits</th>
                 </tr>
               </thead>
-              <tbody>
-                {chartData.map((each) => (
-                  <tr>
-                    <td>{`${new Date(
-                      each.transactionDate
-                    ).getDate()}-${new Date(
-                      each.transactionDate
-                    ).getMonth()} - ${new Date(
-                      each.transactionDate
-                    ).getFullYear()}`}</td>
-                    <td>{each.totalCredits}</td>
-                    <td>{each.totalDebits}</td>
-                  </tr>
-                ))}
-              </tbody>
+              {reportFinalView()}
             </table>
           </div>
         </div>

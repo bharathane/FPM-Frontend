@@ -77,7 +77,11 @@ const Login = () => {
       case apiConstains.success:
         return null;
       case apiConstains.inprogress:
-        return <ThreeDots />;
+        return (
+          <div className="threedots-con">
+            <ThreeDots />
+          </div>
+        );
       case apiConstains.failure:
         return null;
       default:

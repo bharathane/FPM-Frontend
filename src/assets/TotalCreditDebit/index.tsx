@@ -1,13 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 import { apiConstains } from "../ApiConstains";
 import Cookies from "js-cookie";
-
+import { DNA } from "react-loader-spinner";
 import AppContext from "../../context/appContext";
 import "./index.css";
 
 const TotalCreditDebit = () => {
-  const [totalCredits, setTotalCredits] = useState<number>(0);
   const contextVal = useContext(AppContext);
+  const [totalCredits, setTotalCredits] = useState<number>(0);
+
   const [totalCredApiCon, setTotaCredApiCon] = useState<String>(
     apiConstains.initial
   );
@@ -17,7 +18,7 @@ const TotalCreditDebit = () => {
   //making api call for total credits
   const apiForTotalCredits = async () => {
     setTotaCredApiCon(apiConstains.initial);
-    const url = `https://fpm-backen-2.onrender.com/transactions/credits?username=${localStorage.getItem(
+    const url = `http://fpm-backen-2.onrender.com/transactions/credits?username=${localStorage.getItem(
       "username"
     )}`;
 
@@ -41,6 +42,7 @@ const TotalCreditDebit = () => {
     }
   };
 
+  // api call for total debits
   const apiForTotalDebits = async () => {
     const urlDebs = `https://fpm-backen-2.onrender.com/transactions/debits?username=${localStorage.getItem(
       "username"
@@ -69,22 +71,40 @@ const TotalCreditDebit = () => {
     <h1 className="credit-amount-h">+${totalCredits}</h1>
   );
 
+  const debitSuccessView = () => (
+    <h1 className="credit-amount-h">+${totalDebits}</h1>
+  );
+
   const creditInprogressView = () => (
-    <p style={{ color: "black" }}>Loading..</p>
+    <div style={{ height: "3vh" }}>
+      {" "}
+      <DNA />
+    </div>
   );
 
   const failureView = () => <p>Somthing went wrong! please try again...</p>;
 
+  //final view for credits
   const finalCreditView = () => {
     switch (totalCredApiCon) {
       case apiConstains.success:
         return creditSuccessView();
-      case apiConstains.inprogress:
-        return creditInprogressView();
       case apiConstains.failure:
         return failureView();
       default:
-        return null;
+        return creditInprogressView();
+    }
+  };
+
+  //final view for debits
+  const finalDebitsView = () => {
+    switch (totalCredApiCon) {
+      case apiConstains.success:
+        return debitSuccessView();
+      case apiConstains.failure:
+        return failureView();
+      default:
+        return creditInprogressView();
     }
   };
 
@@ -102,7 +122,7 @@ const TotalCreditDebit = () => {
       </div>
       <div className="total-amounts-class">
         <div>
-          <h1 className="debit-amount-h"> -${totalDebits}</h1>
+          {finalDebitsView()}
           <p>Debits</p>
         </div>
         <img
