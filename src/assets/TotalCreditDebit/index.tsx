@@ -72,7 +72,7 @@ const TotalCreditDebit = () => {
   );
 
   const debitSuccessView = () => (
-    <h1 className="credit-amount-h">+${totalDebits}</h1>
+    <h1 className="debit-amount-h">-${totalDebits}</h1>
   );
 
   const creditInprogressView = () => (
