@@ -18,7 +18,7 @@ const TotalCreditDebit = () => {
   //making api call for total credits
   const apiForTotalCredits = async () => {
     setTotaCredApiCon(apiConstains.initial);
-    const url = `http://fpm-backen-2.onrender.com/transactions/credits?username=${localStorage.getItem(
+    const url = `https://fpm-backen-2.onrender.com/transactions/credits?username=${localStorage.getItem(
       "username"
     )}`;
 
