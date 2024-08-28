@@ -44,10 +44,25 @@
 
 @media (max-width: 560px) {
   .debit-amount-h {
-    font-size: 16px;
+    font-size: 19px;
   }
 
   .credit-amount-h {
-    font-size: 16px;
+    font-size: 19px;
+  }
+
+  .total-amouts-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  .total-amounts-class {
+    width: 70vw;
+  }
+
+  .total-amounts-class img {
+    width: 20vw;
   }
 }
