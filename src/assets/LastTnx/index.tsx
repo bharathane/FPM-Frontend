@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import Cookies from "js-cookie";
 import { apiConstains } from "../ApiConstains";
 import { InfinitySpin } from "react-loader-spinner";
 import EachTnx from "../EachTransaction";
+import AppContext from "../../context/appContext";
 import "./index.css";
 
 type eachTnxType = {
@@ -19,7 +20,7 @@ type eachTnxType = {
 const LastTnx = () => {
   const [lastTnx, setLastTnx] = useState<eachTnxType[]>([]);
   const [lastTnxStatus, setLastTnxStatus] = useState(apiConstains.initial);
-
+  const contextVal = useContext(AppContext);
   const apiForLastTnx = async () => {
     setLastTnxStatus(apiConstains.inprogress);
     const url = `https://fpm-backen-2.onrender.com/transactions/recent?username=${localStorage.getItem(
@@ -46,7 +47,7 @@ const LastTnx = () => {
 
   useEffect(() => {
     apiForLastTnx();
-  }, []);
+  }, [contextVal.refreshFlag]);
 
   const failureView = () => <p>Somthing went wrong! please try again...</p>;
 
